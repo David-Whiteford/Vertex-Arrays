@@ -4,12 +4,12 @@
 #include <gl/GL.h>
 #include <gl/GLU.h>
 
-#include <Vector3.h>
-#include <Matrix3.h>
+#include <MyVector3.h>
+#include <MyMatrix3.h>
 
 using namespace std;
 using namespace sf;
-using namespace gpp;
+
 
 class Game
 {
@@ -20,6 +20,17 @@ public:
 private:
 	Window window;
 	bool isRunning = false;
+	MyVector3 vectorArray[8];
+	MyVector3 C1{ 1.0f, 1.0f, -5.0f };
+	MyVector3 C2{ -1.0f, 1.0f, -5.0f };
+	MyVector3 C3{ -1.0f, -1.0f, -5.0f };
+	MyVector3 C4{ 1.0f, -1.0f, -5.0f };
+
+	MyVector3 C5{ 1.0f, 1.0f, -6.0f };
+	MyVector3 C6{ -1.0f, 1.0f, -6.0f };
+	MyVector3 C7{ -1.0f, -1.0f, -6.0f };
+	MyVector3 C8{ 1.0f, -1.0f, -6.0f };
+
 	void initialize();
 	void update();
 	void render();
