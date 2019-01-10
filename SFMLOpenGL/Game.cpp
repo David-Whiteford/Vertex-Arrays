@@ -17,7 +17,6 @@ Game::Game() : window(VideoMode(800, 600), "OpenGL Cube")
 
 Game::~Game() {}
 
-
 // Vertices for one Triangle
 float vertices[] = 
 {					
@@ -32,33 +31,6 @@ float vertices[] =
 
 	1.0f, 1.0f, -6.0f,   -1.0f, 1.0f, -6.0f,   -1.0f, -1.0f, -6.0f,	// Back face
 	1.0f, 1.0f, -6.0f,   1.0f, -1.0f, -6.0f,   -1.0f, -1.0f, -6.0f,
-
-	
-
-//	MyVector3 C1{ 1.0f, 1.0f, -5.0f };
-//MyVector3 C2{ -1.0f, 1.0f, -5.0f };
-//MyVector3 C3{ -1.0f, -1.0f, -5.0f };
-//MyVector3 C4{ 1.0f, -1.0f, -5.0f };
-//
-//MyVector3 C5{ 1.0f, 1.0f, -6.0f };
-//MyVector3 C6{ -1.0f, 1.0f, -6.0f };
-//MyVector3 C7{ -1.0f, -1.0f, -6.0f };
-//MyVector3 C8{ 1.0f, -1.0f, -6.0f };
-
-
-//C1 , -1.0f, 1.0f , -5.0f, -1.0f , -1.0f, -5.0f,
-//1.0f, 1.0f, -5.0f , 1.0f, -1.0f , -5.0f, -1.0f , -1.0f, -5.0f ,	//front face
-//
-//1.0f, 1.0f, -5.0f,   -1.0f, -1.0f, -5.0f,   1.0f, 1.0f, -6.0f,	// Right side Face
-//1.0f, 1.0f, -6.0f, -1.0f, -1.0f, -6.0f, -1.0f, -1.0f, -5.0f,
-//
-//1.0f, 1.0f, -5.0f,   -1.0f, 1.0f, -5.0f,   -1.0f, 1.0f, -6.0f,	// Top Face
-//1.0f, 1.0f, -6.0f,   -1.0f, 1.0f, -6.0f,   1.0f, 1.0f, -5.0f,
-//
-//1.0f, 1.0f, -6.0f,   -1.0f, 1.0f, -6.0f,   -1.0f, -1.0f, -6.0f,	// Back face
-//1.0f, 1.0f, -6.0f,   1.0f, -1.0f, -6.0f,   -1.0f, -1.0f, -6.0f,
-
-
 
 };
 
@@ -122,14 +94,80 @@ void Game::initialize()
 void Game::update()
 {
 	elapsed = clock.getElapsedTime();
-	/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+	//rotation
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
 		for (int i = 0; i < 24; i++)
 		{
-			vertices[i] = (MyMatrix3::rotationX(0.01) * vertices[i]);
+			vectorArray[i] = (MyMatrix3::rotationX(0.01) * vectorArray[i]);
 		}
 	}
-*/
+	/// <summary>
+	/// Key presses for the rotation of the cube down
+	/// </summary>
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+	{
+		for (int i = 0; i < 24; i++)
+		{
+			vectorArray[i] = (MyMatrix3::rotationX(-0.01) * vectorArray[i]);
+		}
+	}
+	/// <summary>
+	/// Key presses for the rotation of the cube left
+	/// </summary>
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+	{
+		for (int i = 0; i < 24; i++)
+		{
+			vectorArray[i] = (MyMatrix3::rotationZ(0.01) * vectorArray[i]);
+		}
+	}
+	/// <summary>
+	/// Key presses for the rotation of the cube right
+	/// </summary>
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+	{
+		for (int i = 0; i < 24; i++)
+		{
+			vectorArray[i] = (MyMatrix3::rotationZ(-0.01) * vectorArray[i]);
+		}
+	}
+	
+
+
+
+	vertices[0] = vectorArray[0].x;
+	vertices[1] = vectorArray[0].y;
+	vertices[2] = vectorArray[0].z;
+
+	vertices[3] = vectorArray[1].x;
+	vertices[4] = vectorArray[1].y;
+	vertices[5] = vectorArray[1].z;
+
+	vertices[6] = vectorArray[2].x;
+	vertices[7] = vectorArray[2].y;
+	vertices[8] = vectorArray[2].z;
+
+	vertices[9] = vectorArray[0].x;
+	vertices[10] = vectorArray[0].y;
+	vertices[11] = vectorArray[0].z;
+
+	vertices[12] = vectorArray[3].x;
+	vertices[13] = vectorArray[3].y;
+	vertices[14] = vectorArray[3].z;
+
+	vertices[15] = vectorArray[4].x;
+	vertices[16] = vectorArray[4].y;
+	vertices[17] = vectorArray[4].z;
+
+
+
+
+
+
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 	cout << "Update up" << endl;
 }
 
@@ -147,7 +185,7 @@ void Game::render()
 	//glDrawArrays(GL_TRIANGLES, 0, 3);
 
 	glDrawElements(GL_TRIANGLES, 24, GL_UNSIGNED_INT, &vertex_index);
-
+	
 	glDisableClientState(GL_COLOR_ARRAY);
 	glDisableClientState(GL_VERTEX_ARRAY);
 
