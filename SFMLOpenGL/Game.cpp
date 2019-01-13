@@ -13,11 +13,19 @@ Game::Game() : window(VideoMode(800, 600), "OpenGL Cube")
 	vectorArray[5] = C6;
 	vectorArray[6] = C7;
 	vectorArray[7] = C8;
+	for (int i = 0; i < 8; i++)
+	{
+		translationArray[i] = { 1,1,1 };
+	}
+
+
+
+
 }
 
 Game::~Game() {}
 
-// Vertices for one Triangle
+ //Vertices for one Triangle
 float vertices[] = 
 {					
 	1.0f, 1.0f, -5.0f , -1.0f, 1.0f , -5.0f, -1.0f , -1.0f, -5.0f,
@@ -133,6 +141,84 @@ void Game::update()
 		}
 	}
 	
+
+
+
+	/// <summary>
+	/// translation
+	/// </summary>
+	/// 
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			if (translationArray[i].z >= 0)
+			{
+
+				translationArray[i] = (MyMatrix3::translation(MyVector3{ 0,0.01, 0 }) * translationArray[i]);
+			}
+			else
+			{
+				translationArray[i] = (MyMatrix3::translation(MyVector3{ 0,-0.01, 0 }) * translationArray[i]);
+			}
+		}
+	}
+	/// <summary>
+	/// key presses for the translation down
+	/// </summary>
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	{
+		for (int i = 0; i < 8; i++)
+		{
+
+			if (translationArray[i].z >= 0)
+			{
+
+				translationArray[i] = (MyMatrix3::translation(MyVector3{ 0, -0.01, 0 }) * translationArray[i]);
+			}
+			else
+			{
+				translationArray[i] = (MyMatrix3::translation(MyVector3{ 0,0.01, 0 }) * translationArray[i]);
+			}
+		}
+	}
+	/// <summary>
+	/// key presses for the translation left
+	/// </summary>
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	{
+		for (int i = 0; i < 8; i++)
+		{
+
+			if (translationArray[i].z >= 0)
+			{
+
+				translationArray[i] = (MyMatrix3::translation(MyVector3{ -0.01, 0, 0 }) * translationArray[i]);
+			}
+			else
+			{
+				translationArray[i] = (MyMatrix3::translation(MyVector3{ 0.01, 0, 0 }) * translationArray[i]);
+			}
+		}
+	}
+	/// <summary>
+	/// key presses for the translation Right
+	/// </summary>
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			if (translationArray[i].z >= 0)
+			{
+
+				translationArray[i] = (MyMatrix3::translation(MyVector3{ 0.01, 0, 0 }) * translationArray[i]);
+			}
+			else
+			{
+				translationArray[i] = (MyMatrix3::translation(MyVector3{ -0.01, 0, 0 }) * translationArray[i]);
+			}
+		}
+	}
 
 
 
