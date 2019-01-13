@@ -13,6 +13,12 @@ Game::Game() : window(VideoMode(800, 600), "OpenGL Cube")
 	vectorArray[5] = C6;
 	vectorArray[6] = C7;
 	vectorArray[7] = C8;
+
+
+	for (int i = 0; i < 108; i++)
+	{
+		vertex_index[i] = i;
+	}
 	for (int i = 0; i < 8; i++)
 	{
 		translationArray[i] = { 1,1,1 };
@@ -48,21 +54,35 @@ float vertices[] =
 // Colors for those vertices
 float colors[] =
 { 
-	1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f ,
-	1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f , //front face color
-	1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+	1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f ,//1
+
+	1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f , //2
+
+	1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,//3
+
 	1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
 
 	1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+
 	1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+
 	1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+
+	1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+
+	1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+
+	1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+
+	1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+
 	1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
 };   
 
 
 // Index to be drawn
 unsigned int vertex_index[] = { 0, 1, 2 ,3 ,4 , 5,6,7,8,9,10,11,12,13,14,15,16,17,18,19
-,22,23};
+,22,23 ,24 ,25 ,26, 27, 28,29 ,30,31 , 32 , 33,34,35,36};
 
 void Game::run()
 {
@@ -220,31 +240,175 @@ void Game::update()
 		}
 	}
 
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			vectorArray[i] = (MyMatrix3::scale(0.99) * vectorArray[i]);
+		}
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			vectorArray[i] = (MyMatrix3::scale(1.01) * vectorArray[i]);
+		}
+	}
 
 
-	vertices[0] = vectorArray[0].x;
-	vertices[1] = vectorArray[0].y;
-	vertices[2] = vectorArray[0].z;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	{
+		glLoadIdentity();
+	}
 
-	vertices[3] = vectorArray[1].x;
-	vertices[4] = vectorArray[1].y;
-	vertices[5] = vectorArray[1].z;
+	for (int i = 0; i < 8; i++)
+	{
+		resultVec[i] = vectorArray[i] + translationArray[i];
+	}
 
-	vertices[6] = vectorArray[2].x;
-	vertices[7] = vectorArray[2].y;
-	vertices[8] = vectorArray[2].z;
+	vertices[0] = resultVec[0].x;
+	vertices[1] = resultVec[0].y;
+	vertices[2] = resultVec[0].z;
 
-	vertices[9] = vectorArray[0].x;
-	vertices[10] = vectorArray[0].y;
-	vertices[11] = vectorArray[0].z;
+	vertices[3] = resultVec[1].x;
+	vertices[4] = resultVec[1].y;
+	vertices[5] = resultVec[1].z;
 
-	vertices[12] = vectorArray[3].x;
-	vertices[13] = vectorArray[3].y;
-	vertices[14] = vectorArray[3].z;
+	vertices[6] = resultVec[2].x;
+	vertices[7] = resultVec[2].y;
+	vertices[8] = resultVec[2].z;
 
-	vertices[15] = vectorArray[4].x;
-	vertices[16] = vectorArray[4].y;
-	vertices[17] = vectorArray[4].z;
+	vertices[9] = resultVec[0].x;
+	vertices[10] = resultVec[0].y;
+	vertices[11] = resultVec[0].z;
+
+	vertices[12] = resultVec[3].x;
+	vertices[13] = resultVec[3].y;
+	vertices[14] = resultVec[3].z;
+
+	vertices[15] = resultVec[2].x;
+	vertices[16] = resultVec[2].y;
+	vertices[17] = resultVec[2].z;
+
+	vertices[18] = resultVec[4].x;
+	vertices[19] = resultVec[4].y;
+	vertices[20] = resultVec[4].z;
+	
+	vertices[21] = resultVec[5].x;
+	vertices[22] = resultVec[5].y;
+	vertices[23] = resultVec[5].z;
+	
+	vertices[24] = resultVec[6].x;
+	vertices[25] = resultVec[6].y;
+	vertices[26] = resultVec[6].z;
+	
+	vertices[27] = resultVec[4].x;
+	vertices[28] = resultVec[4].y;
+	vertices[29] = resultVec[4].z;
+	
+	vertices[30] = resultVec[7].x;
+	vertices[31] = resultVec[7].y;
+	vertices[32] = resultVec[7].z;
+	
+	vertices[33] = resultVec[6].x;
+	vertices[34] = resultVec[6].y;
+	vertices[35] = resultVec[6].z;
+	
+	vertices[36] = resultVec[0].x;
+	vertices[37] = resultVec[0].y;
+	vertices[38] = resultVec[0].z;
+	
+	vertices[39] = resultVec[1].x;
+	vertices[40] = resultVec[1].y;
+	vertices[41] = resultVec[1].z;
+	
+	vertices[42] = resultVec[5].x;
+	vertices[43] = resultVec[5].y;
+	vertices[44] = resultVec[5].z;
+	
+	vertices[45] = resultVec[4].x;
+	vertices[46] = resultVec[4].y;
+	vertices[47] = resultVec[4].z;
+	
+	vertices[48] = resultVec[5].x;
+	vertices[49] = resultVec[5].y;
+	vertices[50] = resultVec[5].z;
+	
+	vertices[51] = resultVec[0].x;
+	vertices[52] = resultVec[0].y;
+	vertices[53] = resultVec[0].z;
+	
+	vertices[54] = resultVec[0].x;
+	vertices[55] = resultVec[0].y;
+	vertices[56] = resultVec[0].z;
+	
+	vertices[57] = resultVec[3].x;
+	vertices[58] = resultVec[3].y;
+	vertices[59] = resultVec[3].z;
+	
+	vertices[60] = resultVec[7].x;
+	vertices[61] = resultVec[7].y;
+	vertices[62] = resultVec[7].z;
+	
+	vertices[63] = resultVec[7].x;
+	vertices[64] = resultVec[7].y;
+	vertices[65] = resultVec[7].z;
+
+	vertices[66] = resultVec[4].x;
+	vertices[67] = resultVec[4].y;
+	vertices[68] = resultVec[4].z;
+	
+	vertices[69] = resultVec[0].x;
+	vertices[70] = resultVec[0].y;
+	vertices[71] = resultVec[0].z;
+	
+	vertices[72] = resultVec[1].x;
+	vertices[73] = resultVec[1].y;
+	vertices[74] = resultVec[1].z;
+	
+	vertices[75] = resultVec[2].x;
+	vertices[76] = resultVec[2].y;
+	vertices[77] = resultVec[2].z;
+	
+	vertices[78] = resultVec[6].x;
+	vertices[79] = resultVec[6].y;
+	vertices[80] = resultVec[6].z;
+	
+	vertices[81] = resultVec[6].x;
+	vertices[82] = resultVec[6].y;
+	vertices[83] = resultVec[6].z;
+	
+	vertices[84] = resultVec[5].x;
+	vertices[85] = resultVec[5].y;
+	vertices[86] = resultVec[5].z;
+	
+	vertices[87] = resultVec[1].x;
+	vertices[88] = resultVec[1].y;
+	vertices[89] = resultVec[1].z;
+	
+	vertices[90] = resultVec[3].x;
+	vertices[91] = resultVec[3].y;
+	vertices[92] = resultVec[3].z;
+	
+	vertices[93] = resultVec[7].x;
+	vertices[94] = resultVec[7].y;
+	vertices[95] = resultVec[7].z;
+	
+	vertices[96] = resultVec[6].x;
+	vertices[97] = resultVec[6].y;
+	vertices[98] = resultVec[6].z;
+	
+	vertices[99] = resultVec[6].x;
+	vertices[100] = resultVec[6].y;
+	vertices[101] = resultVec[6].z;
+	
+	vertices[102] = resultVec[2].x;
+	vertices[103] = resultVec[2].y;
+	vertices[104] = resultVec[2].z;
+	
+	vertices[105] = resultVec[3].x;
+	vertices[106] = resultVec[3].y;
+	vertices[107] = resultVec[3].z;
 
 
 
@@ -270,7 +434,7 @@ void Game::render()
 
 	//glDrawArrays(GL_TRIANGLES, 0, 3);
 
-	glDrawElements(GL_TRIANGLES, 24, GL_UNSIGNED_INT, &vertex_index);
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, &vertex_index);
 	
 	glDisableClientState(GL_COLOR_ARRAY);
 	glDisableClientState(GL_VERTEX_ARRAY);

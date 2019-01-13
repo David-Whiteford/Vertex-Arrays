@@ -22,6 +22,13 @@ private:
 	bool isRunning = false;
 	MyVector3 vectorArray[8]; 
 	MyVector3 translationArray[8];
+	MyVector3 resultVec[8];
+
+
+	float vertices[108];
+	unsigned int vertex_index[108];
+
+
 	MyVector3 C1{ 1.0f, 1.0f, -5.0f };
 	MyVector3 C2{ -1.0f, 1.0f, -5.0f };
 	MyVector3 C3{ -1.0f, -1.0f, -5.0f };
@@ -31,6 +38,16 @@ private:
 	MyVector3 C6{ -1.0f, 1.0f, -6.0f };
 	MyVector3 C7{ -1.0f, -1.0f, -6.0f };
 	MyVector3 C8{ 1.0f, -1.0f, -6.0f };
+
+	//MyVector3 C1{ 1.0f, 1.0f, -1.0f };
+	//MyVector3 C2{ -1.0f, 1.0f, -1.0f };
+	//MyVector3 C3{ -1.0f, -1.0f, -1.0f };
+	//MyVector3 C4{ 1.0f, -1.0f, -1.0f };
+
+	//MyVector3 C5{ 1.0f, 1.0f, 1.0f };
+	//MyVector3 C6{ -1.0f, 1.0f, 1.0f };
+	//MyVector3 C7{ -1.0f, -1.0f, 1.0f };
+	//MyVector3 C8{ 1.0f, -1.0f, 1.0f };
 
 	void initialize();
 	void update();
